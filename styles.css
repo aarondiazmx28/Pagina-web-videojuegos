@@ -192,4 +192,10 @@ footer {
     bottom: 0;
     width: 100%;
 }
+button{
+    background-color: khaki;
+    color: black;
+    width: 50px;
+
+}
 
