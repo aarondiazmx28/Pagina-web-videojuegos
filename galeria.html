@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galería - Videojuegos</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .carousel-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .carousel-slide {
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
+        .carousel-slide img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+        .carousel-slide img:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -21,18 +48,31 @@
             </ul>
         </nav>
     </header>
+
     <main>
-        <section>
-            <h2>Imágenes Destacadas</h2>
-            <div class="centrado">
-                <img src="https://w0.peakpx.com/wallpaper/464/664/HD-wallpaper-mortal-kombat-11-ultimate.jpg" alt=" ">
-            </div>   
-            <div class="centrado">
-                <img src="https://c4.wallpaperflare.com/wallpaper/730/688/22/mario-kart-8-4k-computer-hd-download-wallpaper-preview.jpg" alt="Descripción de la imagen">
-            </div>  
-            <div class="centrado">
-                <img src="https://c4.wallpaperflare.com/wallpaper/968/447/675/resident-evil-2-games-2019-games-hd-wallpaper-preview.jpg" alt="Descripción de la imagen">
-            </div>  
+        <h2>Imágenes Destacadas</h2>
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="https://w0.peakpx.com/wallpaper/464/664/HD-wallpaper-mortal-kombat-11-ultimate.jpg" alt="Mortal Kombat 11">
+                <img src="https://c4.wallpaperflare.com/wallpaper/730/688/22/mario-kart-8-4k-computer-hd-download-wallpaper-preview.jpg" alt="Mario Kart 8">
+                <img src="https://c4.wallpaperflare.com/wallpaper/968/447/675/resident-evil-2-games-2019-games-hd-wallpaper-preview.jpg" alt="Resident Evil 2">
+            </div>
+        </div>
+    </main>
 
-
-
+    <script>
+        const slide = document.querySelector(".carousel-slide");
+        let index = 0;
+        
+        function nextSlide() {
+            index++;
+            if (index >= slide.children.length) {
+                index = 0;
+            }
+            slide.style.transform = `translateX(${-index * 100}%)`;
+        }
+        
+        setInterval(nextSlide, 4000);
+    </script>
+</body>
+</html>
