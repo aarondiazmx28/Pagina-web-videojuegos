@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guías de Videojuegos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        h2 { color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        input, textarea { width: 100%; margin: 5px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; }
+        button:hover { background: #0056b3; }
+        .guia { border: 1px solid #ddd; padding: 15px; margin-top: 15px; background: white; border-radius: 5px; }
+        img { max-width: 100%; height: auto; margin-top: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Publicar Guía de Videojuegos</h2>
+        <input type="text" id="titulo" placeholder="Título de la guía" required>
+        <textarea id="contenido" placeholder="Escribe la guía aquí..." rows="5" required></textarea>
+        <input type="text" id="imagenURL" placeholder="URL de la imagen (opcional)">
+        <button onclick="publicarGuia()">Publicar</button>
+
+        <h2>Guías Publicadas</h2>
+        <div id="contenedorGuias"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", cargarGuias);
+
+        function publicarGuia() {
+            let titulo = document.getElementById("titulo").value.trim();
+            let contenido = document.getElementById("contenido").value.trim();
+            let imagenURL = document.getElementById("imagenURL").value.trim();
+
+            if (titulo === "" || contenido === "") {
+                alert("Por favor, completa el título y el contenido.");
+                return;
+            }
+
+            let nuevaGuia = { titulo, contenido, imagenURL };
+            let guias = JSON.parse(localStorage.getItem("guias")) || [];
+            guias.push(nuevaGuia);
+            localStorage.setItem("guias", JSON.stringify(guias));
+
+            mostrarGuia(nuevaGuia);
+            document.getElementById("titulo").value = "";
+            document.getElementById("contenido").value = "";
+            document.getElementById("imagenURL").value = "";
+        }
+
+        function mostrarGuia(guia) {
+            let contenedor = document.getElementById("contenedorGuias");
+            let div = document.createElement("div");
+            div.classList.add("guia");
+            div.innerHTML = `<h3>${guia.titulo}</h3><p>${guia.contenido}</p>`;
+            if (guia.imagenURL) div.innerHTML += `<img src="${guia.imagenURL}" alt="Imagen de la guía">`;
+            contenedor.prepend(div); 
+        }
+
+        function cargarGuias() {
+            let guias = JSON.parse(localStorage.getItem("guias")) || [];
+            guias.forEach(mostrarGuia);
+        }
+    </script>
+
+</body>
+</html>
